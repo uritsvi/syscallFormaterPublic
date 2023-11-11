@@ -1,0 +1,471 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    new_line
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> syscall_name syscall_id format_dec parameters
+Rule 2     format_dec -> format_keyword colon
+Rule 3     syscall_name -> name_keyword colon name
+Rule 4     syscall_id -> id_keyword colon number
+Rule 5     parameters -> parameter
+Rule 6     parameters -> parameters parameter
+Rule 7     parameter -> field_keyword colon data_type name semicolon offset_keyword colon number semicolon size_keyword colon number semicolon signed_keyword colon number semicolon
+Rule 8     data_type -> int_keyword
+Rule 9     data_type -> short_keyword
+Rule 10    data_type -> char_keyword
+Rule 11    data_type -> size_t_keyword
+Rule 12    data_type -> pid_t_keyword
+Rule 13    data_type -> unsigned_keyword data_type
+Rule 14    data_type -> const_keyword data_type
+Rule 15    data_type -> data_type asterisk
+Rule 16    data_type -> struct_keyword name
+
+Terminals, with rules where they appear
+
+asterisk             : 15
+char_keyword         : 10
+colon                : 2 3 4 7 7 7 7
+const_keyword        : 14
+error                : 
+field_keyword        : 7
+format_keyword       : 2
+id_keyword           : 4
+int_keyword          : 8
+name                 : 3 7 16
+name_keyword         : 3
+new_line             : 
+number               : 4 7 7 7
+offset_keyword       : 7
+pid_t_keyword        : 12
+semicolon            : 7 7 7 7
+short_keyword        : 9
+signed_keyword       : 7
+size_keyword         : 7
+size_t_keyword       : 11
+struct_keyword       : 16
+unsigned_keyword     : 13
+
+Nonterminals, with rules where they appear
+
+data_type            : 7 13 14 15
+format_dec           : 1
+parameter            : 5 6
+parameters           : 1 6
+program              : 0
+syscall_id           : 1
+syscall_name         : 1
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . syscall_name syscall_id format_dec parameters
+    (3) syscall_name -> . name_keyword colon name
+
+    name_keyword    shift and go to state 3
+
+    program                        shift and go to state 1
+    syscall_name                   shift and go to state 2
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> syscall_name . syscall_id format_dec parameters
+    (4) syscall_id -> . id_keyword colon number
+
+    id_keyword      shift and go to state 5
+
+    syscall_id                     shift and go to state 4
+
+state 3
+
+    (3) syscall_name -> name_keyword . colon name
+
+    colon           shift and go to state 6
+
+
+state 4
+
+    (1) program -> syscall_name syscall_id . format_dec parameters
+    (2) format_dec -> . format_keyword colon
+
+    format_keyword  shift and go to state 8
+
+    format_dec                     shift and go to state 7
+
+state 5
+
+    (4) syscall_id -> id_keyword . colon number
+
+    colon           shift and go to state 9
+
+
+state 6
+
+    (3) syscall_name -> name_keyword colon . name
+
+    name            shift and go to state 10
+
+
+state 7
+
+    (1) program -> syscall_name syscall_id format_dec . parameters
+    (5) parameters -> . parameter
+    (6) parameters -> . parameters parameter
+    (7) parameter -> . field_keyword colon data_type name semicolon offset_keyword colon number semicolon size_keyword colon number semicolon signed_keyword colon number semicolon
+
+    field_keyword   shift and go to state 13
+
+    parameters                     shift and go to state 11
+    parameter                      shift and go to state 12
+
+state 8
+
+    (2) format_dec -> format_keyword . colon
+
+    colon           shift and go to state 14
+
+
+state 9
+
+    (4) syscall_id -> id_keyword colon . number
+
+    number          shift and go to state 15
+
+
+state 10
+
+    (3) syscall_name -> name_keyword colon name .
+
+    id_keyword      reduce using rule 3 (syscall_name -> name_keyword colon name .)
+
+
+state 11
+
+    (1) program -> syscall_name syscall_id format_dec parameters .
+    (6) parameters -> parameters . parameter
+    (7) parameter -> . field_keyword colon data_type name semicolon offset_keyword colon number semicolon size_keyword colon number semicolon signed_keyword colon number semicolon
+
+    $end            reduce using rule 1 (program -> syscall_name syscall_id format_dec parameters .)
+    field_keyword   shift and go to state 13
+
+    parameter                      shift and go to state 16
+
+state 12
+
+    (5) parameters -> parameter .
+
+    field_keyword   reduce using rule 5 (parameters -> parameter .)
+    $end            reduce using rule 5 (parameters -> parameter .)
+
+
+state 13
+
+    (7) parameter -> field_keyword . colon data_type name semicolon offset_keyword colon number semicolon size_keyword colon number semicolon signed_keyword colon number semicolon
+
+    colon           shift and go to state 17
+
+
+state 14
+
+    (2) format_dec -> format_keyword colon .
+
+    field_keyword   reduce using rule 2 (format_dec -> format_keyword colon .)
+
+
+state 15
+
+    (4) syscall_id -> id_keyword colon number .
+
+    format_keyword  reduce using rule 4 (syscall_id -> id_keyword colon number .)
+
+
+state 16
+
+    (6) parameters -> parameters parameter .
+
+    field_keyword   reduce using rule 6 (parameters -> parameters parameter .)
+    $end            reduce using rule 6 (parameters -> parameters parameter .)
+
+
+state 17
+
+    (7) parameter -> field_keyword colon . data_type name semicolon offset_keyword colon number semicolon size_keyword colon number semicolon signed_keyword colon number semicolon
+    (8) data_type -> . int_keyword
+    (9) data_type -> . short_keyword
+    (10) data_type -> . char_keyword
+    (11) data_type -> . size_t_keyword
+    (12) data_type -> . pid_t_keyword
+    (13) data_type -> . unsigned_keyword data_type
+    (14) data_type -> . const_keyword data_type
+    (15) data_type -> . data_type asterisk
+    (16) data_type -> . struct_keyword name
+
+    int_keyword     shift and go to state 19
+    short_keyword   shift and go to state 20
+    char_keyword    shift and go to state 21
+    size_t_keyword  shift and go to state 22
+    pid_t_keyword   shift and go to state 23
+    unsigned_keyword shift and go to state 24
+    const_keyword   shift and go to state 25
+    struct_keyword  shift and go to state 26
+
+    data_type                      shift and go to state 18
+
+state 18
+
+    (7) parameter -> field_keyword colon data_type . name semicolon offset_keyword colon number semicolon size_keyword colon number semicolon signed_keyword colon number semicolon
+    (15) data_type -> data_type . asterisk
+
+    name            shift and go to state 27
+    asterisk        shift and go to state 28
+
+
+state 19
+
+    (8) data_type -> int_keyword .
+
+    name            reduce using rule 8 (data_type -> int_keyword .)
+    asterisk        reduce using rule 8 (data_type -> int_keyword .)
+
+
+state 20
+
+    (9) data_type -> short_keyword .
+
+    name            reduce using rule 9 (data_type -> short_keyword .)
+    asterisk        reduce using rule 9 (data_type -> short_keyword .)
+
+
+state 21
+
+    (10) data_type -> char_keyword .
+
+    name            reduce using rule 10 (data_type -> char_keyword .)
+    asterisk        reduce using rule 10 (data_type -> char_keyword .)
+
+
+state 22
+
+    (11) data_type -> size_t_keyword .
+
+    name            reduce using rule 11 (data_type -> size_t_keyword .)
+    asterisk        reduce using rule 11 (data_type -> size_t_keyword .)
+
+
+state 23
+
+    (12) data_type -> pid_t_keyword .
+
+    name            reduce using rule 12 (data_type -> pid_t_keyword .)
+    asterisk        reduce using rule 12 (data_type -> pid_t_keyword .)
+
+
+state 24
+
+    (13) data_type -> unsigned_keyword . data_type
+    (8) data_type -> . int_keyword
+    (9) data_type -> . short_keyword
+    (10) data_type -> . char_keyword
+    (11) data_type -> . size_t_keyword
+    (12) data_type -> . pid_t_keyword
+    (13) data_type -> . unsigned_keyword data_type
+    (14) data_type -> . const_keyword data_type
+    (15) data_type -> . data_type asterisk
+    (16) data_type -> . struct_keyword name
+
+    int_keyword     shift and go to state 19
+    short_keyword   shift and go to state 20
+    char_keyword    shift and go to state 21
+    size_t_keyword  shift and go to state 22
+    pid_t_keyword   shift and go to state 23
+    unsigned_keyword shift and go to state 24
+    const_keyword   shift and go to state 25
+    struct_keyword  shift and go to state 26
+
+    data_type                      shift and go to state 29
+
+state 25
+
+    (14) data_type -> const_keyword . data_type
+    (8) data_type -> . int_keyword
+    (9) data_type -> . short_keyword
+    (10) data_type -> . char_keyword
+    (11) data_type -> . size_t_keyword
+    (12) data_type -> . pid_t_keyword
+    (13) data_type -> . unsigned_keyword data_type
+    (14) data_type -> . const_keyword data_type
+    (15) data_type -> . data_type asterisk
+    (16) data_type -> . struct_keyword name
+
+    int_keyword     shift and go to state 19
+    short_keyword   shift and go to state 20
+    char_keyword    shift and go to state 21
+    size_t_keyword  shift and go to state 22
+    pid_t_keyword   shift and go to state 23
+    unsigned_keyword shift and go to state 24
+    const_keyword   shift and go to state 25
+    struct_keyword  shift and go to state 26
+
+    data_type                      shift and go to state 30
+
+state 26
+
+    (16) data_type -> struct_keyword . name
+
+    name            shift and go to state 31
+
+
+state 27
+
+    (7) parameter -> field_keyword colon data_type name . semicolon offset_keyword colon number semicolon size_keyword colon number semicolon signed_keyword colon number semicolon
+
+    semicolon       shift and go to state 32
+
+
+state 28
+
+    (15) data_type -> data_type asterisk .
+
+    name            reduce using rule 15 (data_type -> data_type asterisk .)
+    asterisk        reduce using rule 15 (data_type -> data_type asterisk .)
+
+
+state 29
+
+    (13) data_type -> unsigned_keyword data_type .
+    (15) data_type -> data_type . asterisk
+
+  ! shift/reduce conflict for asterisk resolved as shift
+    name            reduce using rule 13 (data_type -> unsigned_keyword data_type .)
+    asterisk        shift and go to state 28
+
+  ! asterisk        [ reduce using rule 13 (data_type -> unsigned_keyword data_type .) ]
+
+
+state 30
+
+    (14) data_type -> const_keyword data_type .
+    (15) data_type -> data_type . asterisk
+
+  ! shift/reduce conflict for asterisk resolved as shift
+    name            reduce using rule 14 (data_type -> const_keyword data_type .)
+    asterisk        shift and go to state 28
+
+  ! asterisk        [ reduce using rule 14 (data_type -> const_keyword data_type .) ]
+
+
+state 31
+
+    (16) data_type -> struct_keyword name .
+
+    name            reduce using rule 16 (data_type -> struct_keyword name .)
+    asterisk        reduce using rule 16 (data_type -> struct_keyword name .)
+
+
+state 32
+
+    (7) parameter -> field_keyword colon data_type name semicolon . offset_keyword colon number semicolon size_keyword colon number semicolon signed_keyword colon number semicolon
+
+    offset_keyword  shift and go to state 33
+
+
+state 33
+
+    (7) parameter -> field_keyword colon data_type name semicolon offset_keyword . colon number semicolon size_keyword colon number semicolon signed_keyword colon number semicolon
+
+    colon           shift and go to state 34
+
+
+state 34
+
+    (7) parameter -> field_keyword colon data_type name semicolon offset_keyword colon . number semicolon size_keyword colon number semicolon signed_keyword colon number semicolon
+
+    number          shift and go to state 35
+
+
+state 35
+
+    (7) parameter -> field_keyword colon data_type name semicolon offset_keyword colon number . semicolon size_keyword colon number semicolon signed_keyword colon number semicolon
+
+    semicolon       shift and go to state 36
+
+
+state 36
+
+    (7) parameter -> field_keyword colon data_type name semicolon offset_keyword colon number semicolon . size_keyword colon number semicolon signed_keyword colon number semicolon
+
+    size_keyword    shift and go to state 37
+
+
+state 37
+
+    (7) parameter -> field_keyword colon data_type name semicolon offset_keyword colon number semicolon size_keyword . colon number semicolon signed_keyword colon number semicolon
+
+    colon           shift and go to state 38
+
+
+state 38
+
+    (7) parameter -> field_keyword colon data_type name semicolon offset_keyword colon number semicolon size_keyword colon . number semicolon signed_keyword colon number semicolon
+
+    number          shift and go to state 39
+
+
+state 39
+
+    (7) parameter -> field_keyword colon data_type name semicolon offset_keyword colon number semicolon size_keyword colon number . semicolon signed_keyword colon number semicolon
+
+    semicolon       shift and go to state 40
+
+
+state 40
+
+    (7) parameter -> field_keyword colon data_type name semicolon offset_keyword colon number semicolon size_keyword colon number semicolon . signed_keyword colon number semicolon
+
+    signed_keyword  shift and go to state 41
+
+
+state 41
+
+    (7) parameter -> field_keyword colon data_type name semicolon offset_keyword colon number semicolon size_keyword colon number semicolon signed_keyword . colon number semicolon
+
+    colon           shift and go to state 42
+
+
+state 42
+
+    (7) parameter -> field_keyword colon data_type name semicolon offset_keyword colon number semicolon size_keyword colon number semicolon signed_keyword colon . number semicolon
+
+    number          shift and go to state 43
+
+
+state 43
+
+    (7) parameter -> field_keyword colon data_type name semicolon offset_keyword colon number semicolon size_keyword colon number semicolon signed_keyword colon number . semicolon
+
+    semicolon       shift and go to state 44
+
+
+state 44
+
+    (7) parameter -> field_keyword colon data_type name semicolon offset_keyword colon number semicolon size_keyword colon number semicolon signed_keyword colon number semicolon .
+
+    field_keyword   reduce using rule 7 (parameter -> field_keyword colon data_type name semicolon offset_keyword colon number semicolon size_keyword colon number semicolon signed_keyword colon number semicolon .)
+    $end            reduce using rule 7 (parameter -> field_keyword colon data_type name semicolon offset_keyword colon number semicolon size_keyword colon number semicolon signed_keyword colon number semicolon .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for asterisk in state 29 resolved as shift
+WARNING: shift/reduce conflict for asterisk in state 30 resolved as shift
